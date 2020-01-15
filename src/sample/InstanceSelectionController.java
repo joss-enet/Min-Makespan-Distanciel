@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.io.*;
 import java.util.Arrays;
 
 public class InstanceSelectionController extends Controller {
@@ -32,7 +33,7 @@ public class InstanceSelectionController extends Controller {
         Button fileButton = new Button();
         fileButton.setText("From a file");
         fileButton.setOnAction(event -> {
-            handleIF();
+            handleIF(fileTextField.getText());
         });
         root.add(fileButton, 0, 3);
 
@@ -100,17 +101,17 @@ public class InstanceSelectionController extends Controller {
         return new Scene(root, 300, 275);
     }
 
-    public void handleIF() {
-
+    public void handleIF(String filename) {
+        String content = readFile(filename);
+        int[] intParsedInstance = parseFromString(content);
+        int[] tasks = Arrays.copyOfRange(intParsedInstance, 2, intParsedInstance.length);
+        ui.setInstance(new Instance(intParsedInstance[0], tasks));
+        ui.setController(new ResultsController(ui));
     }
 
     public void handleIC(String instance) {
-        String[] parsedInstance = instance.split(":");
-        int[] intParsedInstance = new int[parsedInstance.length];
-        for (int i = 0; i<parsedInstance.length; i++) {
-            intParsedInstance[i] = Integer.parseInt(parsedInstance[i]);
-        }
-        int[] tasks = Arrays.copyOfRange(intParsedInstance, 2, parsedInstance.length);
+        int[] intParsedInstance = parseFromString(instance);
+        int[] tasks = Arrays.copyOfRange(intParsedInstance, 2, intParsedInstance.length);
         ui.setInstance(new Instance(intParsedInstance[0], tasks));
         ui.setController(new ResultsController(ui));
     }
@@ -121,5 +122,26 @@ public class InstanceSelectionController extends Controller {
 
     public void handleIR() {
 
+    }
+
+    public int[] parseFromString(String instance) {
+        String[] parsedInstance = instance.split(":");
+        int[] intParsedInstance = new int[parsedInstance.length];
+        for (int i = 0; i<parsedInstance.length; i++) {
+            intParsedInstance[i] = Integer.parseInt(parsedInstance[i]);
+        }
+        return intParsedInstance;
+    }
+
+    private String readFile(String filename) {
+        String res = "";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            res = reader.readLine();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 }
