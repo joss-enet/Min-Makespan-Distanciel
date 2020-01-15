@@ -3,11 +3,13 @@ package sample;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+
 public class UI extends Application {
 
     private Stage stage;
     private Controller controller;
-    private Instance instance;
+    private Instance[] instances;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,12 +30,12 @@ public class UI extends Application {
         stage.show();
     }
 
-    public void setInstance(Instance instance) {
-        this.instance = instance;
+    public void setInstances(Instance[] instances) {
+        this.instances = Arrays.copyOf(instances, instances.length);
     }
 
-    public Instance getInstance() {
-        return this.instance;
+    public Instance[] getInstances() {
+        return this.instances;
     }
 
 }

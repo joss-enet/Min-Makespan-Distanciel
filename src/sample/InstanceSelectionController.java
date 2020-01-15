@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 
 public class InstanceSelectionController extends Controller {
 
@@ -95,7 +96,12 @@ public class InstanceSelectionController extends Controller {
         Button randomInstancesButton = new Button();
         randomInstancesButton.setText("Random instances");
         randomInstancesButton.setOnAction(event -> {
-            handleIR();
+            int m = Integer.parseInt(randomInstancesMTextField.getText());
+            int n = Integer.parseInt(randomInstancesNTextField.getText());
+            int k = Integer.parseInt(randomInstancesKTextField.getText());
+            int min = Integer.parseInt(randomInstancesMinTextField.getText());
+            int max = Integer.parseInt(randomInstancesMaxTextField.getText());
+            handleIR(m, n, k, min, max);
         });
         root.add(randomInstancesButton, 0, 12);
 
@@ -106,14 +112,16 @@ public class InstanceSelectionController extends Controller {
         String content = readFile(filename);
         int[] intParsedInstance = parseFromString(content);
         int[] tasks = Arrays.copyOfRange(intParsedInstance, 2, intParsedInstance.length);
-        ui.setInstance(new Instance(intParsedInstance[0], tasks));
+        Instance[] instanceArray = {new Instance(intParsedInstance[0], tasks)};
+        ui.setInstances(instanceArray);
         ui.setController(new ResultsController(ui));
     }
 
     public void handleIC(String instance) {
         int[] intParsedInstance = parseFromString(instance);
         int[] tasks = Arrays.copyOfRange(intParsedInstance, 2, intParsedInstance.length);
-        ui.setInstance(new Instance(intParsedInstance[0], tasks));
+        Instance[] instanceArray = {new Instance(intParsedInstance[0], tasks)};
+        ui.setInstances(instanceArray);
         ui.setController(new ResultsController(ui));
     }
 
@@ -124,12 +132,24 @@ public class InstanceSelectionController extends Controller {
             tasks[2*i-1] = m+m-i;
         }
         tasks[2*m] = m;
-        ui.setInstance(new Instance(m, tasks));
+        Instance[] instanceArray = {new Instance(m, tasks)};
+        ui.setInstances(instanceArray);
         ui.setController(new ResultsController(ui));
     }
 
-    public void handleIR() {
-
+    public void handleIR(int m, int n, int k, int min, int max) {
+        Random rand = new Random();
+        Instance[] instanceArray = new Instance[k];
+        for (int i=0; i<k; i++) {
+            int D[] = new int[n];
+            for (int j=0; j<n; j++) {
+                int randInt = rand.nextInt(max)+min;
+                D[j] = randInt;
+            }
+            instanceArray[i] = new Instance(m, D);
+        }
+        ui.setInstances(instanceArray);
+        ui.setController(new ResultsController(ui));
     }
 
     public int[] parseFromString(String instance) {
