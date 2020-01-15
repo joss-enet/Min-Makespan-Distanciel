@@ -36,6 +36,6 @@ public class ResultsController extends Controller {
         });
         root.add(backButton, 0, 3);
 
-        return new Scene(root, 300, 275);
+        return new Scene(root, 700, 350);
     }
 }

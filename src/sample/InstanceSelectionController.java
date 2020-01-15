@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -63,7 +64,7 @@ public class InstanceSelectionController extends Controller {
         Button oneRandomInstanceButton = new Button();
         oneRandomInstanceButton.setText("Random instance");
         oneRandomInstanceButton.setOnAction(event -> {
-            handleIM();
+            handleIM(Integer.parseInt(oneRandomInstanceTextField.getText()));
         });
         root.add(oneRandomInstanceButton, 0, 9);
 
@@ -98,7 +99,7 @@ public class InstanceSelectionController extends Controller {
         });
         root.add(randomInstancesButton, 0, 12);
 
-        return new Scene(root, 300, 275);
+        return new Scene(root, 700, 350);
     }
 
     public void handleIF(String filename) {
@@ -116,8 +117,15 @@ public class InstanceSelectionController extends Controller {
         ui.setController(new ResultsController(ui));
     }
 
-    public void handleIM() {
-
+    public void handleIM(int m) {
+        int[] tasks = new int[2*m+1];
+        for (int i=1; i<=m; i++) {
+            tasks[2*i-2] = m+m-i;
+            tasks[2*i-1] = m+m-i;
+        }
+        tasks[2*m] = m;
+        ui.setInstance(new Instance(m, tasks));
+        ui.setController(new ResultsController(ui));
     }
 
     public void handleIR() {
@@ -141,6 +149,9 @@ public class InstanceSelectionController extends Controller {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Error during file reading.");
+            alert.show();
         }
         return res;
     }
