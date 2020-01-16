@@ -56,22 +56,20 @@ public class Instance {
         return res;
     }
 
-    public void listSchedulingAlgorithm(){
+    public Result listSchedulingAlgorithm(){
         clearMachines();
         assignTask();
-        System.out.println("Résultat LSA = "+ machineWithMoreTask(this.M).getCumTask());
-        System.out.println("ration LSA = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
     }
 
-    public void largestProcessingTime(){
+    public Result largestProcessingTime(){
         clearMachines();
         copyOfSortedD(this.D);
         assignTask();
-        System.out.println("Résultat LPT = "+machineWithMoreTask(this.M).getCumTask());
-        System.out.println("ration LPT = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
     }
 
-    public void myAlgo(){
+    public Result myAlgo(){
         clearMachines();
         copyOfSortedD(this.D);
         int bound = (sumOfTask()/this.M.length);
@@ -90,9 +88,7 @@ public class Instance {
             M[machineWithLessTask(this.M)].addTask(D[i]);
         }
 
-        System.out.println("Résultat MyAlgo = "+machineWithMoreTask(this.M).getCumTask());
-        System.out.println("ration MyAlgo = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
-
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
     }
 
     /**
