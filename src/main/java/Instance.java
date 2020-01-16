@@ -76,12 +76,12 @@ public class Instance {
         for(int i =0;i<D.length;i++){
             tasks.add(D[i]);
         }
-        tamp = (ArrayList)tasks.clone();
+        tamp = copyListOfInteger(tasks);
         int bound = (sumOfTask()/this.M.length);
         int j = 0;
         //Fill machine with task until theoric bound has been reached.
         for(int i=0;i<this.M.length;i++){
-            tasks =  (ArrayList)tamp.clone();
+            tasks =  copyListOfInteger(tamp);
             for (Integer task:tasks
                  ) {
                 if(task+M[i].getCumTask()<=bound){
@@ -97,6 +97,15 @@ public class Instance {
         }
 
         return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+    }
+
+    private ArrayList<Integer> copyListOfInteger(ArrayList<Integer> copy){
+        ArrayList<Integer> res = new ArrayList<>();
+        for (Integer task:copy
+        ) {
+            res.add(task);
+        }
+        return res;
     }
 
     /**
