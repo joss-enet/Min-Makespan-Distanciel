@@ -12,11 +12,13 @@ public class Instance {
 
     public Instance(int m, int[] D) {
         this.M = new Machine[m];
+        this.D = new int[D.length];
         for (int i = 0; i<m; i++) {
             this.M[i] = new Machine();
         }
-
-        this.D = Arrays.copyOf(D, D.length);
+        for(int i=0;i<D.length;i++){
+            this.D[i] = D[i];
+        }
     }
 
     public void executeAllAlgorithm(){
@@ -57,16 +59,16 @@ public class Instance {
     public void listSchedulingAlgorithm(){
         clearMachines();
         assignTask();
-        System.out.println("Résultat LSA = "+ machineWithMoreTask(this.M));
-        System.out.println("ration LSA = "+(machineWithMoreTask(this.M).getCumTask()/(sumOfTask()/this.M.length)));
+        System.out.println("Résultat LSA = "+ machineWithMoreTask(this.M).getCumTask());
+        System.out.println("ration LSA = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
     }
 
     public void largestProcessingTime(){
         clearMachines();
         copyOfSortedD(this.D);
         assignTask();
-        System.out.println("Résultat LPT = "+machineWithMoreTask(this.M));
-        System.out.println("ration LPT = "+(machineWithMoreTask(this.M).getCumTask()/(sumOfTask()/this.M.length)));
+        System.out.println("Résultat LPT = "+machineWithMoreTask(this.M).getCumTask());
+        System.out.println("ration LPT = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
     }
 
     public void myAlgo(){
@@ -85,11 +87,11 @@ public class Instance {
         }
         //If all task where not added because solution can't be perfectly fit with the theoric bound.
         for (int i = j; i < D.length; i++) {
-            machineWithLessTask(this.M).addTask(D[i]);
+            M[machineWithLessTask(this.M)].addTask(D[i]);
         }
 
-        System.out.println("Résultat MyAlgo = "+machineWithMoreTask(this.M));
-        System.out.println("ration MyAlgo = "+(machineWithMoreTask(this.M).getCumTask()/(sumOfTask()/this.M.length)));
+        System.out.println("Résultat MyAlgo = "+machineWithMoreTask(this.M).getCumTask());
+        System.out.println("ration MyAlgo = "+((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
 
     }
 
@@ -98,7 +100,7 @@ public class Instance {
      */
     private void assignTask() {
         for (int i = 0; i < D.length; i++) {
-            machineWithLessTask(this.M).addTask(D[i]);
+            M[machineWithLessTask(this.M)].addTask(D[i]);
         }
     }
 
@@ -107,17 +109,16 @@ public class Instance {
      * @param machines array of Machine
      * @return machine with less task
      */
-    private Machine machineWithLessTask(Machine[] machines){
-        Machine machine = new Machine();
-        int sum=-1;
+    private int machineWithLessTask(Machine[] machines){
+        int indice = 0;
+        int sum=Integer.MAX_VALUE;
         for(int i=0;i<machines.length;i++){
-            if(sum<machines[i].getCumTask() || sum>-1){
-                machine = machines[i];
-                sum = machine.getCumTask();
+            if(sum>machines[i].getCumTask()){
+                indice = i;
+                sum = machines[i].getCumTask();
             }
         }
-
-        return machine;
+        return indice;
     }
 
     /**
@@ -127,9 +128,9 @@ public class Instance {
      */
     private Machine machineWithMoreTask(Machine[] machines){
         Machine machine = new Machine();
-        int sum=-1;
+        int sum=Integer.MIN_VALUE;
         for(int i=0;i<machines.length;i++){
-            if(sum>machines[i].getCumTask()){
+            if(sum<machines[i].getCumTask()){
                 machine = machines[i];
                 sum = machine.getCumTask();
             }

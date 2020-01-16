@@ -11,10 +11,10 @@ public class Machine {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(int tache){
-        if(tache>0){
-            cumTask +=tache;
-            tasks.add(tache);
+    public void addTask(int task){
+        if(task>0){
+            cumTask +=task;
+            tasks.add(task);
         }
 
     }
