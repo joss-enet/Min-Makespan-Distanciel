@@ -22,6 +22,7 @@ public class Instance {
     public void executeAllAlgorithm(){
         listSchedulingAlgorithm();
         largestProcessingTime();
+        myAlgo();
     }
 
     /**
@@ -70,6 +71,7 @@ public class Instance {
 
     public void myAlgo(){
         clearMachines();
+        copyOfSortedD(this.D);
         int bound = (sumOfTask()/this.M.length);
         int j = 0;
         //Fill machine with task until theoric bound has been reached.
