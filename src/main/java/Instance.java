@@ -59,14 +59,14 @@ public class Instance {
     public Result listSchedulingAlgorithm(){
         clearMachines();
         assignTask();
-        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/(this.inf())));
     }
 
     public Result largestProcessingTime(){
         clearMachines();
         copyOfSortedD(this.D);
         assignTask();
-        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/(this.inf())));
     }
 
     public Result myAlgo(){
@@ -96,7 +96,35 @@ public class Instance {
             M[machineWithLessTask(this.M)].addTask(task);
         }
 
-        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
+        return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/(this.inf())));
+    }
+
+    public double inf() {
+        double infMax = infMax();
+        double infAvg = infAvg();
+        if (infMax>infAvg) {
+            return infMax;
+        } else {
+            return infAvg;
+        }
+    }
+
+    public double infMax() {
+        double max = D[0];
+        for (int i=1; i<D.length; i++) {
+            if(D[i]>max) {
+                max = D[i];
+            }
+        }
+        return max;
+    }
+
+    public double infAvg() {
+        double res = 0;
+        for (int i=0; i<D.length; i++) {
+            res += D[i];
+        }
+        return (res/D.length);
     }
 
     private ArrayList<Integer> copyListOfInteger(ArrayList<Integer> copy){

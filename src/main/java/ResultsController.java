@@ -32,6 +32,13 @@ public class ResultsController extends Controller {
 
         //Results
 
+        double infMax = ui.getInstances()[0].infMax();
+        double infAvg = ui.getInstances()[0].infAvg();
+        Text infMaxRes = new Text("'Maximum' lower bound = "+infMax);
+        Text infAvgRes = new Text("'Average' lower bound = "+infAvg);
+        root.add(infMaxRes, 0, currentRow++);
+        root.add(infAvgRes, 0, currentRow++);
+
         Result resultLSA = ui.getInstances()[0].listSchedulingAlgorithm();
         Result resultLPT = ui.getInstances()[0].largestProcessingTime();
         Result resultMyAlgo = ui.getInstances()[0].myAlgo();
