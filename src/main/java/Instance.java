@@ -72,18 +72,21 @@ public class Instance {
     public Result myAlgo(){
         clearMachines();
         ArrayList<Integer> tasks = new ArrayList<>();
+        ArrayList<Integer> tamp = new ArrayList<>();
         for(int i =0;i<D.length;i++){
             tasks.add(D[i]);
         }
+        tamp = (ArrayList)tasks.clone();
         int bound = (sumOfTask()/this.M.length);
         int j = 0;
         //Fill machine with task until theoric bound has been reached.
         for(int i=0;i<this.M.length;i++){
+            tasks =  (ArrayList)tamp.clone();
             for (Integer task:tasks
                  ) {
                 if(task+M[i].getCumTask()<=bound){
                     M[i].addTask(task);
-                    tasks.remove(task);
+                    tamp.remove(task);
                 }
             }
         }
