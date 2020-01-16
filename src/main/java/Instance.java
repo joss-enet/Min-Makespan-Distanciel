@@ -55,9 +55,8 @@ public class Instance {
 
     public void listSchedulingAlgorithm(){
         clearMachines();
-        long debut = System.currentTimeMillis();
         assignTask();
-        System.out.println("Résultat LSA = "+(System.currentTimeMillis()-debut));
+        System.out.println("Résultat LSA = "+ machineWithMoreTask(this.M));
         System.out.println("ration LSA = ");
     }
 
@@ -66,7 +65,7 @@ public class Instance {
         long debut = System.currentTimeMillis();
         copyOfSortedD(this.D);
         assignTask();
-        System.out.println("Résultat LPT = "+(System.currentTimeMillis()-debut));
+        System.out.println("Résultat LPT = "+machineWithMoreTask(this.M));
         System.out.println("ration LPT = ");
     }
 
@@ -90,6 +89,25 @@ public class Instance {
         for(int i=0;i<machines.length;i++){
             if(sum<machines[i].getCumTask() || sum>-1){
                 machine = machines[i];
+                sum = machine.getCumTask();
+            }
+        }
+
+        return machine;
+    }
+
+    /**
+     * Return the machin with more task
+     * @param machines array of machines
+     * @return machine with more task
+     */
+    private Machine machineWithMoreTask(Machine[] machines){
+        Machine machine = new Machine();
+        int sum=-1;
+        for(int i=0;i<machines.length;i++){
+            if(sum>machines[i].getCumTask()){
+                machine = machines[i];
+                sum = machine.getCumTask();
             }
         }
 
