@@ -71,21 +71,26 @@ public class Instance {
 
     public Result myAlgo(){
         clearMachines();
-        copyOfSortedD(this.D);
+        ArrayList<Integer> tasks = new ArrayList<>();
+        for(int i =0;i<D.length;i++){
+            tasks.add(D[i]);
+        }
         int bound = (sumOfTask()/this.M.length);
         int j = 0;
         //Fill machine with task until theoric bound has been reached.
         for(int i=0;i<this.M.length;i++){
-            while(j<D.length && M[i].getCumTask()<bound){
-                if(D[j]+M[i].getCumTask()<=bound){
-                    M[i].addTask(D[j]);
+            for (Integer task:tasks
+                 ) {
+                if(task+M[i].getCumTask()<=bound){
+                    M[i].addTask(task);
+                    tasks.remove(task);
                 }
-                j++;
             }
         }
         //If all task where not added because solution can't be perfectly fit with the theoric bound.
-        for (int i = j; i < D.length; i++) {
-            M[machineWithLessTask(this.M)].addTask(D[i]);
+        for (Integer task:tasks
+             ) {
+            M[machineWithLessTask(this.M)].addTask(task);
         }
 
         return new Result(machineWithMoreTask(this.M).getCumTask(), ((double)machineWithMoreTask(this.M).getCumTask()/((double) sumOfTask()/(double)this.M.length)));
