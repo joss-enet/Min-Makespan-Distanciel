@@ -1,7 +1,6 @@
-import javax.crypto.Mac;
+package main.java;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Instance {
@@ -77,7 +76,7 @@ public class Instance {
             tasks.add(D[i]);
         }
         tamp = copyListOfInteger(tasks);
-        int bound = (sumOfTask()/this.M.length);
+        int bound = sumOfTask()/M.length;
         int j = 0;
         //Fill machine with task until theoric bound has been reached.
         for(int i=0;i<this.M.length;i++){

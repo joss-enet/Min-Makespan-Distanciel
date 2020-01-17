@@ -1,3 +1,5 @@
+package main.java;
+
 import javafx.scene.Scene;
 
 public abstract class Controller {
