@@ -125,11 +125,11 @@ public class InstanceSelectionController extends Controller {
 
     public void handleIM(int m) {
         int[] tasks = new int[2*m+1];
+        tasks[0] = m;
         for (int i=1; i<=m; i++) {
-            tasks[2*i-2] = m+m-i;
-            tasks[2*i-1] = m+m-i;
+            tasks[2*i-1] = m+i-1;
+            tasks[2*i] = m+i-1;
         }
-        tasks[2*m] = m;
         Instance[] instanceArray = {new Instance(m, tasks)};
         ui.setInstances(instanceArray);
         ui.setController(new ResultsController(ui));
