@@ -1,5 +1,3 @@
-package main.java;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,77 +19,83 @@ public class InstanceSelectionController extends Controller {
     @Override
     public Scene createScene() {
         GridPane root = new GridPane();
+        int currentRow = 0;
 
         Text title = new Text("Select an import method for your instance :");
-        root.add(title, 0, 0);
+        root.add(title, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
+
 
         //From file
 
         TextField fileTextField = new TextField();
         Label lbFileTextField = new Label("File name :");
-        root.add(fileTextField, 1 ,2);
-        root.add(lbFileTextField, 0 ,2);
+        root.add(fileTextField, 1 ,currentRow);
+        root.add(lbFileTextField, 0 ,currentRow++);
 
         Button fileButton = new Button();
         fileButton.setText("From a file");
         fileButton.setOnAction(event -> {
             handleIF(fileTextField.getText());
         });
-        root.add(fileButton, 0, 3);
+        root.add(fileButton, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //From keyboard
 
         TextField fullInstanceTextField = new TextField();
         Label lbFullInstanceTextField = new Label("Instance :");
-        root.add(fullInstanceTextField, 1 ,5);
-        root.add(lbFullInstanceTextField, 0 ,5);
+        root.add(fullInstanceTextField, 1 ,currentRow);
+        root.add(lbFullInstanceTextField, 0 ,currentRow++);
 
         Button fullInstanceButton = new Button();
         fullInstanceButton.setText("From keyboard");
         fullInstanceButton.setOnAction(event -> {
             handleIC(fullInstanceTextField.getText());
         });
-        root.add(fullInstanceButton, 0, 6);
+        root.add(fullInstanceButton, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //One instance generation
 
         TextField oneRandomInstanceTextField = new TextField();
         Label lbOneRandomInstanceTextField = new Label("m :");
-        root.add(oneRandomInstanceTextField, 1 ,8);
-        root.add(lbOneRandomInstanceTextField, 0 ,8);
+        root.add(oneRandomInstanceTextField, 1 ,currentRow);
+        root.add(lbOneRandomInstanceTextField, 0 ,currentRow++);
 
         Button oneRandomInstanceButton = new Button();
         oneRandomInstanceButton.setText("Random instance");
         oneRandomInstanceButton.setOnAction(event -> {
             handleIM(Integer.parseInt(oneRandomInstanceTextField.getText()));
         });
-        root.add(oneRandomInstanceButton, 0, 9);
+        root.add(oneRandomInstanceButton, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //5 instances generation
 
         TextField randomInstancesMTextField = new TextField();
         Label lbRandomInstancesMTextField = new Label("m :");
-        root.add(randomInstancesMTextField, 1 ,11);
-        root.add(lbRandomInstancesMTextField, 0 ,11);
+        root.add(randomInstancesMTextField, 1 ,currentRow);
+        root.add(lbRandomInstancesMTextField, 0 ,currentRow++);
         TextField randomInstancesNTextField = new TextField();
         Label lbRandomInstancesNTextField = new Label("n :");
-        root.add(randomInstancesNTextField, 3 ,11);
-        root.add(lbRandomInstancesNTextField, 2 ,11);
+        root.add(randomInstancesNTextField, 1 ,currentRow);
+        root.add(lbRandomInstancesNTextField, 0 ,currentRow++);
         TextField randomInstancesKTextField = new TextField();
         Label lbRandomInstancesKTextField = new Label("k :");
-        root.add(randomInstancesKTextField, 5 ,11);
-        root.add(lbRandomInstancesKTextField, 4 ,11);
+        root.add(randomInstancesKTextField, 1 ,currentRow);
+        root.add(lbRandomInstancesKTextField, 0 ,currentRow++);
         TextField randomInstancesMinTextField = new TextField();
         Label lbRandomInstancesMinTextField = new Label("min :");
-        root.add(randomInstancesMinTextField, 7 ,11);
-        root.add(lbRandomInstancesMinTextField, 6 ,11);
+        root.add(randomInstancesMinTextField, 1 ,currentRow);
+        root.add(lbRandomInstancesMinTextField, 0 ,currentRow++);
         TextField randomInstancesMaxTextField = new TextField();
         Label lbRandomInstancesMaxTextField = new Label("max :");
-        root.add(randomInstancesMaxTextField, 9 ,11);
-        root.add(lbRandomInstancesMaxTextField, 8 ,11);
+        root.add(randomInstancesMaxTextField, 1 ,currentRow);
+        root.add(lbRandomInstancesMaxTextField, 0 ,currentRow++);
 
         Button randomInstancesButton = new Button();
         randomInstancesButton.setText("Random instances");
@@ -103,9 +107,9 @@ public class InstanceSelectionController extends Controller {
             int max = Integer.parseInt(randomInstancesMaxTextField.getText());
             handleIR(m, n, k, min, max);
         });
-        root.add(randomInstancesButton, 0, 12);
+        root.add(randomInstancesButton, 0, currentRow++);
 
-        return new Scene(root, 700, 350);
+        return new Scene(root, 650, 450);
     }
 
     public void handleIF(String filename) {

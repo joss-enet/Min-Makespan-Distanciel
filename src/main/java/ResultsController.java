@@ -1,5 +1,3 @@
-package main.java;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -22,6 +20,7 @@ public class ResultsController extends Controller {
 
         Text title = new Text("Results for this instance :");
         root.add(title, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //Instance
@@ -30,6 +29,7 @@ public class ResultsController extends Controller {
         Text tasks = new Text("Tasks lengths : "+ui.getInstances()[0].tasksToString());
         root.add(nbMachines, 0, currentRow++);
         root.add(tasks, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //Results
@@ -58,6 +58,8 @@ public class ResultsController extends Controller {
         root.add(ratioLPT, 0, currentRow++);
         root.add(resMyAlgo, 0, currentRow++);
         root.add(ratioMyAlgo, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
+
 
         //Back button
 
@@ -78,6 +80,7 @@ public class ResultsController extends Controller {
 
         Text title = new Text("Results for this instance :");
         root.add(title, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //Instances
@@ -88,6 +91,8 @@ public class ResultsController extends Controller {
             root.add(nbMachines, 0, currentRow++);
             root.add(tasks, 0, currentRow++);
         }
+        root.add(new Text(""), 0, currentRow++);
+
 
         //Results
 
@@ -112,6 +117,7 @@ public class ResultsController extends Controller {
         root.add(avgRatioLSA, 0, currentRow++);
         root.add(avgRatioLPT, 0, currentRow++);
         root.add(avgRatioMyAlgo, 0, currentRow++);
+        root.add(new Text(""), 0, currentRow++);
 
 
         //Back button

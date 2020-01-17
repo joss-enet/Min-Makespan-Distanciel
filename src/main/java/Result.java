@@ -1,5 +1,3 @@
-package main.java;
-
 public class Result {
     private int res;
     private double ratio;
