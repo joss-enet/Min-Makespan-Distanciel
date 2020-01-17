@@ -112,7 +112,7 @@ public class ResultsController extends Controller {
 
         Text avgRatioLSA = new Text("Average ratio LSA = "+(ratioLSA/ui.getInstances().length));
         Text avgRatioLPT = new Text("Average ratio LPT = "+(ratioLPT/ui.getInstances().length));
-        Text avgRatioMyAlgo = new Text("Average ratio LSA = "+(ratioMyAlgo/ui.getInstances().length));
+        Text avgRatioMyAlgo = new Text("Average ratio MyAlgo = "+(ratioMyAlgo/ui.getInstances().length));
 
         root.add(avgRatioLSA, 0, currentRow++);
         root.add(avgRatioLPT, 0, currentRow++);
